@@ -28,11 +28,32 @@
   import { mapState } from 'vuex'
   import * as types from '@/store/mutation-types'
   import MdcSwitch from '../shared/MaterialComponents/MdcSwitch'
+  import router from '../../router'
 
   export default {
     name: 'element-profile-options',
     components: {
       MdcSwitch
+    },
+    methods: {
+      performRedirect: function (e) {
+        switch (e.keyCode) {
+          case 37: // left
+            router.push('/element/' + this.previousElementId)
+            break
+          case 39: // right
+            router.push('/element/' + this.nextElementId)
+            break
+          default:
+          // nothing
+        }
+      }
+    },
+    created: function () {
+      document.addEventListener('keydown', this.performRedirect)
+    },
+    beforeDestroy: function () {
+      document.removeEventListener('keydown', this.performRedirect)
     },
     computed: {
       ...mapState({
