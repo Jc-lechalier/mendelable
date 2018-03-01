@@ -50,10 +50,10 @@
       }
     },
     created: function () {
-      document.addEventListener('keydown', this.performRedirect)
+      document.addEventListener('keyup', this.performRedirect)
     },
     beforeDestroy: function () {
-      document.removeEventListener('keydown', this.performRedirect)
+      document.removeEventListener('keyup', this.performRedirect)
     },
     computed: {
       ...mapState({
