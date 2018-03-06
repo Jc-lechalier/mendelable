@@ -39,10 +39,14 @@
       performRedirect: function (e) {
         switch (e.keyCode) {
           case 37: // left
-            router.push('/element/' + this.previousElementId)
+            if (this.previousElementId > 0) {
+              router.push('/element/' + this.previousElementId)
+            }
             break
           case 39: // right
-            router.push('/element/' + this.nextElementId)
+            if (this.nextElementId < this.numberOfElements + 1) {
+              router.push('/element/' + this.nextElementId)
+            }
             break
           default:
           // nothing
@@ -50,10 +54,10 @@
       }
     },
     created: function () {
-      document.addEventListener('keydown', this.performRedirect)
+      document.addEventListener('keyup', this.performRedirect)
     },
     beforeDestroy: function () {
-      document.removeEventListener('keydown', this.performRedirect)
+      document.removeEventListener('keyup', this.performRedirect)
     },
     computed: {
       ...mapState({
